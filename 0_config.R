@@ -41,8 +41,9 @@ if(dir.exists("/Users/lisa/Dropbox/WASH/")){
 }
 
 library(boxr)
-box_auth()
-d <- box_read(871638120165) %>% filter(pregnancy_immune == 1)
+box_auth() 
+
+d <- box_read(871638120165) %>% filter(pregnancy-stress == 1) # change to pregnancy-stress
 
 theme_ki<-function(){
   theme_bw() %+replace%
