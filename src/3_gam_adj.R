@@ -1,9 +1,10 @@
 rm(list=ls())
 
-source(here::here("0-config.R"))
+#source(here::here("0-config.R"))
 
 #d<-readRDS(paste0(dropboxDir, "Data/Cleaned/Audrie/pregnancy_child_immune_covariates_data.RDS"))
 
+d <- readRDS("./pregnancy_stress_growth_covariates_data.RDS")
 #Set list of adjustment variables
 #Make vectors of adjustment variable names
 Wvars<-c("sex","birthord", "momage","momheight","momedu", 
@@ -13,7 +14,7 @@ Wvars<-c("sex","birthord", "momage","momheight","momedu",
 Wvars[!(Wvars %in% colnames(d))]
 
 #Add in time varying covariates:
-Wvars2 <- c(Wvars, c("ageday_bt2", "month_blood_t0", "month_bt2")) # what is month bt2? 
+Wvars2 <- c(Wvars, c("ageday_bt2", "month_blood_t0", "month_bt2")) 
 Wvars3 <- c(Wvars, c("ageday_bt3", "month_blood_t0", "month_bt3"))
 
 pick_covariates <- function(j){
@@ -30,11 +31,12 @@ pick_covariates <- function(j){
 #Loop over exposure-outcome pairs
 
 ##Hypothesis 1
-#Maternal nutrition is negatively associated with child inflammation
-Xvars <- c("vitD_nmol_per_L", "logFERR_inf", "logSTFR_inf", "logRBP_inf", 
-           "vit_A_def", "iron_def", "vit_D_def")            
-Yvars <- c("t2_ln_crp", "t2_ln_agp", "t2_ln_ifn", "sumscore_t2_Z", 
-           "t3_ln_crp", "t3_ln_agp", "t3_ln_ifn", "sumscore_t3_Z")
+#Maternal plasma cortisol is inversely associated with child growth 
+
+# X: maternal plasma cortisol - first & second trimester of pregnancy
+# Y: child LAZ at 3, 14, 28 months, stunting 
+Xvars <- c("ln_preg_cort")
+Yvars <- c("laz_t1", "laz_t2", "laz_t3")
 
 #Fit models
 H1_adj_models <- NULL
@@ -89,11 +91,11 @@ saveRDS(H1_adj_plot_data, here("figure-data/H1_adj_spline.data.RDS"))
 
 
 ## Hypothesis 2
-# Maternal stress is positively associated with child inflammation
-
-Xvars <- c("ln_preg_cort")            
-Yvars <- c("t2_ln_crp", "t2_ln_agp", "t2_ln_ifn", "sumscore_t2_Z", 
-           "t3_ln_crp", "t3_ln_agp", "t3_ln_ifn", "sumscore_t3_Z")
+# Maternal inflammation is inversely associated with in-utero and post-natal growth in children
+# X: CRP, AGP, plasma 13-cytokine sum score in first & second trimester of pregnancy 
+# Y: child LAZ at 3, 14, 28 month, stunting 
+Xvars <- c("logCRP", "logAGP", "sumscore_t0_mom_Z")            
+Yvars <- c("laz_t1", "laz_t2", "laz_t3")
 
 #Fit models
 H2_adj_models <- NULL
@@ -139,3 +141,4 @@ saveRDS(H2_adj_res, here("results/adjusted/H2_adj_res.RDS"))
 
 #Save plot data
 saveRDS(H2_adj_plot_data, here("figure-data/H2_adj_spline.data.RDS"))
+

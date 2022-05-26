@@ -14,11 +14,11 @@ names(d)
 #dfull <- readRDS("./stress_growth.RDS")
 
 # select variables/columns of interest 
-exp_out <- c('dataid', 'childid', 'preg_cort', 'logCRP', 'logAGP', 'sumscore_t0_mom_Z', 'igf_t2', 'igf_t3', 'laz_t1', 'laz_t2', 'laz_t3')
+exp_out <- c('dataid', 'childid', 'clusterid', 'ln_preg_cort', 'logCRP', 'logAGP', 'sumscore_t0_mom_Z', 'igf_t2', 'igf_t3', 'laz_t1', 'laz_t2', 'laz_t3')
 cov <- c("sex","birthord", "momage","momheight","momedu", 
          "hfiacat", "Nlt18","Ncomp", "watmin", "walls", "floor", "HHwealth_scaled",
          "tr", "life_viol_any_t3_cat", "viol_any_preg_cat", "roof", "life_viol_any_t3", "viol_any_preg")
-time_cov <- c("ageday_bt2", "month_blood_t0", "month_bt2", "ageday_bt3", "month_blood_t0", "month_bt3")
+time_cov <- c("ageday_bt2", "month_blood_t0", "month_bt2", "ageday_bt3", "month_blood_t0", "month_bt3","time_of_day_cort_cont")
 extract <- c(exp_out, cov, time_cov)
 d <- d %>% select(all_of(extract)) %>% mutate(childid = as.integer(childid)) %>% mutate(dataid = as.integer(dataid))
 
@@ -32,7 +32,7 @@ d <- d[,!(grepl("^(z_)",colnames(d)) | grepl("^(sd_)",colnames(d)))]
 
 ############# Check covariate missingness ###################
 # a few exposures and outcomes
-exp <- c('preg_cort', 'logCRP', 'logAGP', 'sumscore_t0_mom_Z', 'igf_t2', 'igf_t3')
+exp <- c('ln_preg_cort', 'logCRP', 'logAGP', 'sumscore_t0_mom_Z', 'igf_t2', 'igf_t3')
 out <- c('laz_t1', 'laz_t2', 'laz_t3')
 
 Wvars<-c("sex","birthord", "momage","momheight","momedu", 
@@ -57,6 +57,7 @@ mean(W$roof, na.rm=T)
 sd(W$roof, na.rm=T)
 
 # remove roof from covariates
+#d <- subset(d, select=-roof)
 
 # add missingness category to IPV covariates
 d$life_viol_any_t3<-as.factor(d$life_viol_any_t3)

@@ -16,7 +16,6 @@ names(d)
 # X: maternal plasma cortisol - first & second trimester of pregnancy
 # Y: child LAZ at 3, 14, 28 months, stunting 
 Xvars <- c("ln_preg_cort")
-
 Yvars <- c("laz_t1", "laz_t2", "laz_t3")
 
 
@@ -72,9 +71,8 @@ saveRDS(H1_plot_data, here("figure-data/H1_unadj_spline_data.RDS"))
 # Maternal inflammation is inversely associated with in-utero and post-natal growth in children
 # X: CRP, AGP, plasma 13-cytokine sum score in first & second trimester of pregnancy 
 # Y: child LAZ at 3, 14, 28 month, stunting 
-Xvars <- c("ln_preg_cort")            
-Yvars <- c("t2_ln_crp", "t2_ln_agp", "t2_ln_ifn", "sumscore_t2_Z", 
-           "t3_ln_crp", "t3_ln_agp", "t3_ln_ifn", "sumscore_t3_Z")
+Xvars <- c("logCRP", "logAGP", "sumscore_t0_mom_Z")            
+Yvars <- c("laz_t1", "laz_t2", "laz_t3")
 
 #Fit models
 H2_models <- NULL
