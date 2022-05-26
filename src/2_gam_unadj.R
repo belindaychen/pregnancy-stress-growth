@@ -1,23 +1,12 @@
 rm(list=ls())
 
-source(here::here("0-config.R"))
+#source(here::here("0-config.R"))
 
 #d<-readRDS(paste0(dropboxDir, "Data/Cleaned/Audrie/pregnancy_child_immune_covariates_data.RDS"))
 
-# iron deficiency in moms
-d %>% group_by(dataid) %>% summarise(n=n()) %>% filter(n>1)
-filter(d, dataid %in% c(23404, 31102, 35105)) %>% select(dataid, childid)
-unique_moms <- rbind(filter(d, !(dataid %in% c(23404, 31102, 35105))), filter(d, dataid %in% c(23404, 31102, 35105))[1:3,])
+d <- readRDS("./pregnancy_stress_growth_covariates_data.RDS")
 
-summary(unique_moms$iron_def)
-sum(unique_moms$iron_def, na.rm=T)
-filter(unique_moms, FERR_inf_preg < 12 & STFR_inf_preg <= 8.3) %>% nrow()
-filter(unique_moms, FERR_inf_preg >= 12 & STFR_inf_preg > 8.3) %>% nrow()
-filter(unique_moms, FERR_inf_preg < 12 & STFR_inf_preg > 8.3) %>% nrow()
-
-# diarrhea in children
-summary(d$diar7d_t2)
-summary(d$diar7d_t3)
+names(d)
 
 #Loop over exposure-outcome pairs
 
@@ -26,11 +15,10 @@ summary(d$diar7d_t3)
 
 # X: maternal plasma cortisol - first & second trimester of pregnancy
 # Y: child LAZ at 3, 14, 28 months, stunting 
-Xvars <- c("vitD_nmol_per_L", "logFERR_inf", "logSTFR_inf", "logRBP_inf", 
-           "vit_A_def", "iron_def", "vit_D_def")
+Xvars <- c("ln_preg_cort")
 
-Yvars <- c("t2_ln_crp", "t2_ln_agp", "t2_ln_ifn", "sumscore_t2_Z", 
-           "t3_ln_crp", "t3_ln_agp", "t3_ln_ifn", "sumscore_t3_Z")
+Yvars <- c("laz_t1", "laz_t2", "laz_t3")
+
 
 #Fit models
 H1_models <- NULL
