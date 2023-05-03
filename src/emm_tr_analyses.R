@@ -1,6 +1,6 @@
 rm(list=ls())
 
-source(here::here("0-config.R"))
+source(here::here("0_config.R"))
 
 #Maternal nutrition is negatively associated with child inflammation
 Xvars <- c("vitD_nmol_per_L", "logFERR_inf", "logSTFR_inf", "logRBP_inf", 
@@ -125,3 +125,4 @@ saveRDS(H1_adj_res, here("results/adjusted/emm_tr_adj_res.RDS"))
 
 #Save plot data
 saveRDS(H1_adj_plot_data, here("figure-data/emm_tr_adj_spline.data.RDS"))
+

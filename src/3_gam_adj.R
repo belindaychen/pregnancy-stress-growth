@@ -80,7 +80,7 @@ for(i in 1:nrow(H1_adj_models)){
 #saveRDS(H1_adj_models, paste0(dropboxDir,"results/stress-growth-models/models/H1_adj_models.RDS"))
 
 #Save results
-saveRDS(H1_adj_res, here("results/adjusted/H1_adj_res.RDS"))
+saveRDS(H1_adj_res, here("results/adjusted/H12_adj_res.RDS"))
 
 
 #Save plots
@@ -94,7 +94,7 @@ saveRDS(H1_adj_plot_data, here("figure-data/H1_adj_spline.data.RDS"))
 # Maternal inflammation is inversely associated with in-utero and post-natal growth in children
 # X: CRP, AGP, plasma 13-cytokine sum score in first & second trimester of pregnancy 
 # Y: child LAZ at 3, 14, 28 month, stunting 
-Xvars <- c("logCRP", "logAGP", "sumscore_t0_mom_Z")            
+Xvars <- c("logCRP", "logAGP", "sumscore_t0_mom_Z")   
 Yvars <- c("laz_t1", "laz_t2", "laz_t3")
 
 #Fit models
@@ -142,3 +142,118 @@ saveRDS(H2_adj_res, here("results/adjusted/H2_adj_res.RDS"))
 #Save plot data
 saveRDS(H2_adj_plot_data, here("figure-data/H2_adj_spline.data.RDS"))
 
+
+##Hypothesis 3
+#Maternal nutrition is negatively associated with child growth
+Xvars <- c("vitD_nmol_per_L", "logSTFR_inf", "logRBP_inf")            
+Yvars <- c("laz_t1", "laz_t2", "laz_t3")
+
+
+#Fit models
+H3_adj_models <- NULL
+for(i in Xvars){
+  for(j in Yvars){
+    print(i)
+    print(j)
+    Wset<-pick_covariates(j)
+    res_adj <- fit_RE_gam(d=d, X=i, Y=j,  W=Wset)
+    res <- data.frame(X=i, Y=j, fit=I(list(res_adj$fit)), dat=I(list(res_adj$dat)))
+    H3_adj_models <- bind_rows(H3_adj_models, res)
+  }
+}
+
+
+
+#Get primary contrasts
+H3_adj_res <- NULL
+for(i in 1:nrow(H3_adj_models)){
+  res <- data.frame(X=H3_adj_models$X[i], Y=H3_adj_models$Y[i])
+  if(grepl("_def", H3_adj_models$X[i])){
+    preds <- predict_gam_diff(fit=H3_adj_models$fit[i][[1]], d=H3_adj_models$dat[i][[1]], quantile_diff=c(0.25,0.75), Xvar=res$X, Yvar=res$Y, binary=T)
+  }else{
+    preds <- predict_gam_diff(fit=H3_adj_models$fit[i][[1]], d=H3_adj_models$dat[i][[1]], quantile_diff=c(0.25,0.75), Xvar=res$X, Yvar=res$Y)
+  }
+  H3_adj_res <-  bind_rows(H3_adj_res , preds$res)
+}
+
+#Make list of plots
+H3_adj_plot_list <- NULL
+H3_adj_plot_data <- NULL
+for(i in 1:nrow(H3_adj_models)){
+  res <- data.frame(X=H3_adj_models$X[i], Y=H3_adj_models$Y[i])
+  simul_plot <- gam_simul_CI(H3_adj_models$fit[i][[1]], H3_adj_models$dat[i][[1]], xlab=res$X, ylab=res$Y, title="")
+  H3_adj_plot_list[[i]] <-  simul_plot$p
+  H3_adj_plot_data <-  rbind(H3_adj_plot_data, data.frame(Xvar=res$X, Yvar=res$Y, adj=0, simul_plot$pred %>% subset(., select = c(Y,X,id,fit,se.fit,uprP, lwrP,uprS,lwrS))))
+}
+
+
+#Save models
+#saveRDS(H1_adj_models, paste0(dropboxDir,"results/stress-growth-models/models/H1_adj_models.RDS"))
+
+#Save results
+saveRDS(H3_adj_res, here("results/adjusted/H3_adj_res.RDS"))
+
+
+#Save plots
+#saveRDS(H1_adj_plot_list, paste0(dropboxDir,"results/stress-growth-models/figure-objects/H1_adj_splines.RDS"))
+
+#Save plot data
+saveRDS(H3_adj_plot_data, here("figure-data/H3_adj_spline.data.RDS"))
+
+## Hypothesis 4
+# Maternal estriol is positively associated with child growth.
+# X: maternal plasma estriol  - first & second trimester of pregnancy
+# Y: child LAZ at 3, 14, 28 months, stunting 
+Xvars <- c("ln_preg_estri")
+Yvars <- c("laz_t1", "laz_t2", "laz_t3")
+
+#Fit models
+H4_adj_models <- NULL
+for(i in Xvars){
+  for(j in Yvars){
+    print(i)
+    print(j)
+    Wset<-pick_covariates(j)
+    res_adj <- fit_RE_gam(d=d, X=i, Y=j,  W=Wset)
+    res <- data.frame(X=i, Y=j, fit=I(list(res_adj$fit)), dat=I(list(res_adj$dat)))
+    H4_adj_models <- bind_rows(H4_adj_models, res)
+  }
+}
+
+
+
+#Get primary contrasts
+H4_adj_res <- NULL
+for(i in 1:nrow(H4_adj_models)){
+  res <- data.frame(X=H4_adj_models$X[i], Y=H4_adj_models$Y[i])
+  if(grepl("_def", H4_adj_models$X[i])){
+    preds <- predict_gam_diff(fit=H4_adj_models$fit[i][[1]], d=H4_adj_models$dat[i][[1]], quantile_diff=c(0.25,0.75), Xvar=res$X, Yvar=res$Y, binary=T)
+  }else{
+    preds <- predict_gam_diff(fit=H4_adj_models$fit[i][[1]], d=H4_adj_models$dat[i][[1]], quantile_diff=c(0.25,0.75), Xvar=res$X, Yvar=res$Y)
+  }
+  H4_adj_res <-  bind_rows(H4_adj_res , preds$res)
+}
+
+#Make list of plots
+H4_adj_plot_list <- NULL
+H4_adj_plot_data <- NULL
+for(i in 1:nrow(H4_adj_models)){
+  res <- data.frame(X=H4_adj_models$X[i], Y=H4_adj_models$Y[i])
+  simul_plot <- gam_simul_CI(H4_adj_models$fit[i][[1]], H4_adj_models$dat[i][[1]], xlab=res$X, ylab=res$Y, title="")
+  H4_adj_plot_list[[i]] <-  simul_plot$p
+  H4_adj_plot_data <-  rbind(H4_adj_plot_data, data.frame(Xvar=res$X, Yvar=res$Y, adj=0, simul_plot$pred %>% subset(., select = c(Y,X,id,fit,se.fit,uprP, lwrP,uprS,lwrS))))
+}
+
+
+#Save models
+#saveRDS(H1_adj_models, paste0(dropboxDir,"results/stress-growth-models/models/H1_adj_models.RDS"))
+
+#Save results
+saveRDS(H4_adj_res, here("results/adjusted/H4_adj_res.RDS"))
+
+
+#Save plots
+#saveRDS(H1_adj_plot_list, paste0(dropboxDir,"results/stress-growth-models/figure-objects/H1_adj_splines.RDS"))
+
+#Save plot data
+saveRDS(H4_adj_plot_data, here("figure-data/H4_adj_spline.data.RDS"))

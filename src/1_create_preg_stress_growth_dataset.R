@@ -14,7 +14,7 @@ names(d)
 #dfull <- readRDS("./stress_growth.RDS")
 
 # select variables/columns of interest 
-exp_out <- c('dataid', 'childid', 'clusterid', 'ln_preg_cort', 'logCRP', 'logAGP', 'sumscore_t0_mom_Z', 'igf_t2', 'igf_t3', 'laz_t1', 'laz_t2', 'laz_t3')
+exp_out <- c('dataid', 'childid', 'clusterid', 'ln_preg_cort', 'logRBP_inf','logSTFR_inf','vitD_nmol_per_L', 'ln_preg_estri', 'logCRP', 'logAGP', 'sumscore_t0_mom_Z', 'igf_t2', 'igf_t3', 'laz_t1', 'laz_t2', 'laz_t3')
 cov <- c("sex","birthord", "momage","momheight","momedu", 
          "hfiacat", "Nlt18","Ncomp", "watmin", "walls", "floor", "HHwealth_scaled",
          "tr", "life_viol_any_t3_cat", "viol_any_preg_cat", "roof", "life_viol_any_t3", "viol_any_preg")

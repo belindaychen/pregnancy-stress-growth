@@ -43,7 +43,7 @@ if(dir.exists("/Users/lisa/Dropbox/WASH/")){
 library(boxr)
 box_auth() 
 
-d <- box_read(871638120165) %>% filter(pregnancy-stress == 1) # change to pregnancy-stress
+d <- box_read(871638120165) %>% filter(pregnancy_stress==1) # change to pregnancy-stress
 
 theme_ki<-function(){
   theme_bw() %+replace%
@@ -69,12 +69,12 @@ tableau10 <- c("#1F77B4","#FF7F0E","#2CA02C","#D62728",
 
 # # Only run thise lines once when project is initialized 
 # #Call renv::init() to initialize a new project-local environment with a private R library,
-# renv::init(project=here()) 
+renv::init(project=here())
 # 
 # # Only run thise line when packages are updated
 # #Call renv::snapshot() to save the state of the project library to the lockfile (called renv.lock),
 # renv::snapshot()
 # 
 # # Only run these lines when needed (upon initialization and then when package versions need to be restored)
-# #call renv::restore() to  revert to the previous state as encoded in the lockfile 
+#call renv::restore() to  revert to the previous state as encoded in the lockfile
 # renv::restore()
