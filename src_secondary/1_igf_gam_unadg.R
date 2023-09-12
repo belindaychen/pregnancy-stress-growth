@@ -16,8 +16,7 @@ names(d)
 # X: maternal plasma cortisol - first & second trimester of pregnancy
 # Y: child WHZ at 3, 14, 28 months, stunting 
 Xvars <- c("ln_preg_cort")
-Yvars <- c("whz_t1", "whz_t2", "whz_t3")
-
+Yvars <- c("igf_t2", "igf_t3")
 
 #Fit models
 H1_models <- NULL
@@ -53,17 +52,17 @@ for(i in 1:nrow(H1_models)){
 
 
 #Save models
-saveRDS(H1_models, here("models/H1_whz_models.RDS"))
+saveRDS(H1_models, here("models/H1_igf_models.RDS"))
 
 #Save results
-saveRDS(H1_res, here("results/unadjusted/H1_whz_res.RDS"))
+saveRDS(H1_res, here("results/unadjusted/H1_igf_res.RDS"))
 
 
 #Save plots
 #saveRDS(H1_plot_list, here("figure-objects/H1_unadj_splines.RDS"))
 
 #Save plot data
-saveRDS(H1_plot_data, here("figure-data/H1_whz_unadj_spline_data.RDS"))
+saveRDS(H1_plot_data, here("figure-data/H1_igf_unadj_spline_data.RDS"))
 
 
 
@@ -72,7 +71,7 @@ saveRDS(H1_plot_data, here("figure-data/H1_whz_unadj_spline_data.RDS"))
 # X: CRP, AGP, plasma 13-cytokine sum score in first & second trimester of pregnancy 
 # Y: child WHZ at 3, 14, 28 month, stunting 
 Xvars <- c("logCRP", "logAGP", "sumscore_t0_mom_Z")            
-Yvars <- c("whz_t1", "whz_t2", "whz_t3")
+Yvars <- c("igf_t2", "igf_t3")
 
 #Fit models
 H2_models <- NULL
@@ -104,17 +103,17 @@ for(i in 1:nrow(H2_models)){
 
 
 #Save models
-saveRDS(H2_models, here("models/H2_whz_models.RDS"))
+saveRDS(H2_models, here("models/H2_igf_models.RDS"))
 
 #Save results
-saveRDS(H2_res, here("results/unadjusted/H2_whz_res.RDS"))
+saveRDS(H2_res, here("results/unadjusted/H2_igf_res.RDS"))
 
 
 #Save plots
 #saveRDS(H2_plot_list, here("figure-objects/H2_unadj_splines.RDS"))
 
 #Save plot data
-saveRDS(H2_plot_data, here("figure-data/H2_whz_unadj_spline_data.RDS"))
+saveRDS(H2_plot_data, here("figure-data/H2_igf_unadj_spline_data.RDS"))
 
 ##Hypothesis 3
 #Maternal nutrition is positively associated with child attained growth 
@@ -122,7 +121,7 @@ saveRDS(H2_plot_data, here("figure-data/H2_whz_unadj_spline_data.RDS"))
 # X: Vitamin D, ferritin, soluble transferrin receptor (sTfR), Vitamin A deficiency in first or second trimester 
 # Y: child WHZ at 3, 14, 28 months, stunting 
 Xvars <- c("logRBP_inf", "logSTFR_inf", "vitD_nmol_per_L")
-Yvars <- c("whz_t1", "whz_t2", "whz_t3")
+Yvars <- c("igf_t2", "igf_t3")
 
 
 #Fit models
@@ -159,17 +158,17 @@ for(i in 1:nrow(H3_models)){
 
 
 #Save models
-saveRDS(H3_models, here("models/H3_whz_models.RDS"))
+saveRDS(H3_models, here("models/H3_igf_models.RDS"))
 
 #Save results
-saveRDS(H3_res, here("results/unadjusted/H3_whz_res.RDS"))
+saveRDS(H3_res, here("results/unadjusted/H3_igf_res.RDS"))
 
 
 #Save plots
 #saveRDS(H3_plot_list, here("figure-objects/H3_unadj_splines.RDS"))
 
 #Save plot data
-saveRDS(H3_plot_data, here("figure-data/H3_whz_unadj_spline_data.RDS"))
+saveRDS(H3_plot_data, here("figure-data/H3_igf_unadj_spline_data.RDS"))
 
 ##Hypothesis 4
 #Maternal estriol is positively associated with child attained growth 
@@ -177,7 +176,7 @@ saveRDS(H3_plot_data, here("figure-data/H3_whz_unadj_spline_data.RDS"))
 # X: Maternal estriol in first or second trimester 
 # Y: child WHZ at 3, 14, 28 months, stunting 
 Xvars <- c("ln_preg_estri")
-Yvars <- c("whz_t1", "whz_t2", "whz_t3")
+Yvars <- c("igf_t2", "igf_t3")
 
 
 #Fit models
@@ -214,17 +213,17 @@ for(i in 1:nrow(H4_models)){
 
 
 #Save models
-saveRDS(H4_models, here("models/H4_whz_models.RDS"))
+saveRDS(H4_models, here("models/H4_igf_models.RDS"))
 
 #Save results
-saveRDS(H4_res, here("results/unadjusted/H4_whz_res.RDS"))
+saveRDS(H4_res, here("results/unadjusted/H4_igf_res.RDS"))
 
 
 #Save plots
 #saveRDS(H3_plot_list, here("figure-objects/H3_unadj_splines.RDS"))
 
 #Save plot data
-saveRDS(H4_plot_data, here("figure-data/H4_whz_unadj_spline_data.RDS"))
+saveRDS(H4_plot_data, here("figure-data/H4_igf_unadj_spline_data.RDS"))
 
 
 
