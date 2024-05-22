@@ -9,7 +9,7 @@ rm(list=ls())
 #updated_pregnancy <- box_read(845078269128)
 
 # read in data 
-d <- readRDS("./stress_growth.RDS")
+d <- readRDS("data/stress_growth.RDS")
 names(d)
 #dfull <- readRDS("./stress_growth.RDS")
 

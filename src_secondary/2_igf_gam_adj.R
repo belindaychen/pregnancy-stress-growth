@@ -1,6 +1,6 @@
 rm(list=ls())
 
-#source(here::here("0-config.R"))
+#source(here::(../0-config.R"))
 
 #d<-readRDS(paste0(dropboxDir, "Data/Cleaned/Audrie/pregnancy_child_immune_covariates_data.RDS"))
 
@@ -44,8 +44,8 @@ for(i in Xvars){
   for(j in Yvars){
     print(i)
     print(j)
-    Wset<-pick_covariates(j)
-    res_adj <- fit_RE_gam(d=d, X=i, Y=j,  W=Wset, forcedW = NULL)
+    Wset<-c(pick_covariates(j), "time_of_day_cort_cont")
+    res_adj <- fit_RE_gam(d=d, X=i, Y=j,  W=Wset, forcedW = c("time_of_day_cort_cont"))
     res <- data.frame(X=i, Y=j, fit=I(list(res_adj$fit)), dat=I(list(res_adj$dat)))
     H1_adj_models <- bind_rows(H1_adj_models, res)
   }
@@ -80,14 +80,14 @@ for(i in 1:nrow(H1_adj_models)){
 #saveRDS(H1_adj_models, paste0(dropboxDir,"results/stress-growth-models/models/H1_adj_models.RDS"))
 
 #Save results
-saveRDS(H1_adj_res, here("results/adjusted/H1_igf_adj_res.RDS"))
+saveRDS(H1_adj_res, ("./results/adjusted/H1_igf_adj_res.RDS"))
 
 
 #Save plots
 #saveRDS(H1_adj_plot_list, paste0(dropboxDir,"results/stress-growth-models/figure-objects/H1_adj_splines.RDS"))
 
 #Save plot data
-saveRDS(H1_adj_plot_data, here("figure-data/H1_igf_adj_spline.data.RDS"))
+saveRDS(H1_adj_plot_data, ("./figure-data/H1_igf_adj_spline.data.RDS"))
 
 
 ## Hypothesis 2
@@ -133,14 +133,14 @@ for(i in 1:nrow(H2_adj_models)){
 #saveRDS(H2_adj_models, paste0(dropboxDir,"results/stress-growth-models/models/adj_H2_adj_models.RDS"))
 
 #Save results
-saveRDS(H2_adj_res, here("results/adjusted/H2_igf_adj_res.RDS"))
+saveRDS(H2_adj_res, ("./results/adjusted/H2_igf_adj_res.RDS"))
 
 
 #Save plots
 #saveRDS(H2_adj_plot_list, paste0(dropboxDir,"results/stress-growth-models/figure-objects/H2_adj_adj_splines.RDS"))
 
 #Save plot data
-saveRDS(H2_adj_plot_data, here("figure-data/H2_igf_adj_spline.data.RDS"))
+saveRDS(H2_adj_plot_data, ("./figure-data/H2_igf_adj_spline.data.RDS"))
 
 
 ##Hypothesis 3
@@ -191,14 +191,14 @@ for(i in 1:nrow(H3_adj_models)){
 #saveRDS(H1_adj_models, paste0(dropboxDir,"results/stress-growth-models/models/H1_adj_models.RDS"))
 
 #Save results
-saveRDS(H3_adj_res, here("results/adjusted/H3_igf_adj_res.RDS"))
+saveRDS(H3_adj_res, ("./results/adjusted/H3_igf_adj_res.RDS"))
 
 
 #Save plots
 #saveRDS(H1_adj_plot_list, paste0(dropboxDir,"results/stress-growth-models/figure-objects/H1_adj_splines.RDS"))
 
 #Save plot data
-saveRDS(H3_adj_plot_data, here("figure-data/H3_igf_adj_spline.data.RDS"))
+saveRDS(H3_adj_plot_data, ("./figure-data/H3_igf_adj_spline.data.RDS"))
 
 ## Hypothesis 4
 # Maternal estriol is positively associated with child growth.
@@ -249,11 +249,12 @@ for(i in 1:nrow(H4_adj_models)){
 #saveRDS(H1_adj_models, paste0(dropboxDir,"results/stress-growth-models/models/H1_adj_models.RDS"))
 
 #Save results
-saveRDS(H4_adj_res, here("results/adjusted/H4_igf_adj_res.RDS"))
+saveRDS(H4_adj_res, ("./results/adjusted/H4_igf_adj_res.RDS"))
 
 
 #Save plots
 #saveRDS(H1_adj_plot_list, paste0(dropboxDir,"results/stress-growth-models/figure-objects/H1_adj_splines.RDS"))
 
 #Save plot data
-saveRDS(H4_adj_plot_data, here("figure-data/H4_igf_adj_spline.data.RDS"))
+saveRDS(H4_adj_plot_data, ("./figure-data/H4_igf_adj_spline.data.RDS"))
+

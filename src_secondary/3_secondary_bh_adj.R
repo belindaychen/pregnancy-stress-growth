@@ -45,4 +45,4 @@ saveRDS(full_res %>% filter(H==4) %>% select(-H), here("results/unadjusted/H4_wh
 saveRDS(full_adj_res %>% filter(H==1) %>% select(-H), here("results/adjusted/H1_whz_adj_res.RDS"))
 saveRDS(full_adj_res %>% filter(H==2) %>% select(-H), here("results/adjusted/H2_whz_adj_res.RDS"))
 saveRDS(full_adj_res %>% filter(H==3) %>% select(-H), here("results/adjusted/H3_whz_adj_res.RDS"))
-saveRDS(full_adj_res %>% filter(H==4) %>% select(-H), here("results/adjusted/H4_whz)adj_res.RDS"))
+saveRDS(full_adj_res %>% filter(H==4) %>% select(-H), here("results/adjusted/H4_whz_adj_res.RDS"))

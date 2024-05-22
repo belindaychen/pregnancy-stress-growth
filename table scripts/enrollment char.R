@@ -5,7 +5,7 @@ library(tidyverse)
 library(flextable)
 library(officer)
 
-d <- readRDS("/Users/Classof2020ChenBelin/pregnancy-stress-growth/bangladesh-cleaned-master-data.RDS") %>% filter(.$pregnancy_stress == 1)
+d <- readRDS("/Users/Classof2020ChenBelin/pregnancy-stress-growth/data/bangladesh-cleaned-master-data.RDS") %>% filter(.$pregnancy_stress == 1)
 
 filtering <- function(row){
   any(!is.na(row))
@@ -57,7 +57,8 @@ for (var in c(child)) {
 }
 
 for (var in c(mom)) {
-  if (var %in% c('life_viol_any_t3') | is.factor(m[[var]])) {
+  if ((var %in% c('life_viol_any_t3') | is.factor(m[[var]])) & var != 'momage' & var != 'life_viol_any_t3') {
+    print(var)
     m[[var]] <- na_if(m[[var]], "Missing")
     n_med_col <- c(n_med_col, nperc(m[[var]]))
   }else {
@@ -120,7 +121,7 @@ sect_properties <- prop_section(
   page_size = page_size(orient = "portrait", width=8.5, height=11),
   page_margins = page_mar(bottom=.3, top=.3, right=.3, left=.3, gutter = 0)
 )
-save_as_docx("Table 1" = tbl1flex, path="tables/enrollment/pregnancy-stress-enrollment.docx", 
+save_as_docx("Table 1" = tbl1flex, path="pregnancy-stress-enrollment.docx", 
              pr_section = sect_properties) 
 
 #table(d$momedu)

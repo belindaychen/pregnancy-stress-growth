@@ -52,17 +52,17 @@ for(i in 1:nrow(H1_models)){
 
 
 #Save models
-saveRDS(H1_models, here("models/H1_igf_models.RDS"))
+saveRDS(H1_models, ("./models/H1_igf_models.RDS"))
 
 #Save results
-saveRDS(H1_res, here("results/unadjusted/H1_igf_res.RDS"))
+saveRDS(H1_res, ("./results/unadjusted/H1_igf_res.RDS"))
 
 
 #Save plots
 #saveRDS(H1_plot_list, here("figure-objects/H1_unadj_splines.RDS"))
 
 #Save plot data
-saveRDS(H1_plot_data, here("figure-data/H1_igf_unadj_spline_data.RDS"))
+saveRDS(H1_plot_data, ("./figure-data/H1_igf_unadj_spline_data.RDS"))
 
 
 
@@ -103,17 +103,17 @@ for(i in 1:nrow(H2_models)){
 
 
 #Save models
-saveRDS(H2_models, here("models/H2_igf_models.RDS"))
+saveRDS(H2_models, ("./models/H2_igf_models.RDS"))
 
 #Save results
-saveRDS(H2_res, here("results/unadjusted/H2_igf_res.RDS"))
+saveRDS(H2_res, ("./results/unadjusted/H2_igf_res.RDS"))
 
 
 #Save plots
 #saveRDS(H2_plot_list, here("figure-objects/H2_unadj_splines.RDS"))
 
 #Save plot data
-saveRDS(H2_plot_data, here("figure-data/H2_igf_unadj_spline_data.RDS"))
+saveRDS(H2_plot_data, ("./figure-data/H2_igf_unadj_spline_data.RDS"))
 
 ##Hypothesis 3
 #Maternal nutrition is positively associated with child attained growth 
@@ -158,17 +158,17 @@ for(i in 1:nrow(H3_models)){
 
 
 #Save models
-saveRDS(H3_models, here("models/H3_igf_models.RDS"))
+saveRDS(H3_models, ("./models/H3_igf_models.RDS"))
 
 #Save results
-saveRDS(H3_res, here("results/unadjusted/H3_igf_res.RDS"))
+saveRDS(H3_res, ("./results/unadjusted/H3_igf_res.RDS"))
 
 
 #Save plots
 #saveRDS(H3_plot_list, here("figure-objects/H3_unadj_splines.RDS"))
 
 #Save plot data
-saveRDS(H3_plot_data, here("figure-data/H3_igf_unadj_spline_data.RDS"))
+saveRDS(H3_plot_data, ("./figure-data/H3_igf_unadj_spline_data.RDS"))
 
 ##Hypothesis 4
 #Maternal estriol is positively associated with child attained growth 
@@ -213,17 +213,17 @@ for(i in 1:nrow(H4_models)){
 
 
 #Save models
-saveRDS(H4_models, here("models/H4_igf_models.RDS"))
+saveRDS(H4_models, ("./models/H4_igf_models.RDS"))
 
 #Save results
-saveRDS(H4_res, here("results/unadjusted/H4_igf_res.RDS"))
+saveRDS(H4_res, ("./results/unadjusted/H4_igf_res.RDS"))
 
 
 #Save plots
 #saveRDS(H3_plot_list, here("figure-objects/H3_unadj_splines.RDS"))
 
 #Save plot data
-saveRDS(H4_plot_data, here("figure-data/H4_igf_unadj_spline_data.RDS"))
+saveRDS(H4_plot_data, ("./figure-data/H4_igf_unadj_spline_data.RDS"))
 
 
 
