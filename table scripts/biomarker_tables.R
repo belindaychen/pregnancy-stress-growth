@@ -1,4 +1,5 @@
 rm(list=ls())
+library(data.table)
 
 # source(here::here("0-config.R"))
 source(here::here("C:/Users/Classof2020ChenBelin/pregnancy-stress-growth/table scripts/table-functions.R"))
@@ -126,3 +127,64 @@ save_as_docx("Table 4: Maternal Micronutrients and Child Growth Status" = tbl2fl
 #              "Table 3: Maternal Immune Status and Child Immune Status" = tbl5flexsupp,
 #              path='C:/Users/Classof2020ChenBelin/pregnancy-stress-growth/tables/pregnancy-stress-supp-tables.docx',
 #              pr_section = sect_properties)
+
+#-----------------------------------------------
+#Tables Including BH-Correction for Internal Use
+#-----------------------------------------------
+
+#-------------------------------
+#Table 2 Maternal Micronutrients
+#-------------------------------
+exposure <- c("vitD_nmol_per_L", "vit_D_def", "logRBP_inf",  "vit_A_def", "logFERR_inf", "logSTFR_inf", "iron_def") 
+outcome <- c("laz_t1", "whz_t1", "laz_t2", "whz_t2", "igf_t2", "laz_t3", "whz_t3", "igf_t3"
+)
+expo_var <- c("Vitamin D (nmol/L)", "Vitamin D deficiency", "Ln RBP (umol/L)", "Vitamin A deficiency","Ln ferritin (ug/L)", "Ln sTfR (mg/L)", "Iron deficiency") 
+out_var <- c("Length-for-Age Z-Score 3 months", "Weight-for-Length Z-Score 3 months", 
+             "Length-for-Age Z-Score 14 months", "Weight-for-Length Z-Score 14 months", "Ln IGF-1 14 months (ug/L)", 
+             "Length-for-Age Z-Score 28 months", "Weight-for-Length Z-Score 28 months", "Ln IGF-1 28 months (ug/L)")
+
+BH_tbl2 <- growth_tbl("Maternal Micronutrients and Child Growth", expo_var, out_var, exposure, outcome, full_res, full_adj_res, F)
+
+#-----------------------------------
+#Table 3 Maternal plasma cortisol H1
+#-----------------------------------
+exposure <- c("ln_preg_cort") 
+outcome <- c("laz_t1", "whz_t1", "laz_t2", "whz_t2", "igf_t2", "laz_t3", "whz_t3", "igf_t3")
+expo_var <- c("Ln Cortisol (ug/dL)") 
+out_var <- c("Length-for-Age Z-Score 3 months", "Weight-for-Length Z-Score 3 months", 
+             "Length-for-Age Z-Score 14 months", "Weight-for-Length Z-Score 14 months", "Ln IGF-1 14 months (ug/L)", 
+             "Length-for-Age Z-Score 28 months", "Weight-for-Length Z-Score 28 months", "Ln IGF-1 28 months (ug/L)")
+
+BH_tbl3 <- growth_tbl("Maternal Cortisol and Child Growth Status", expo_var, out_var, exposure, outcome, full_res, full_adj_res, F)
+
+#---------------------------
+#Table 4 Maternal estriol H4
+#---------------------------
+exposure <- c("ln_preg_estri") 
+outcome <- c("laz_t1", "whz_t1", "laz_t2", "whz_t2", "igf_t2", "laz_t3", "whz_t3", "igf_t3")
+expo_var <- c("Ln Estriol (ng/mL)") 
+out_var <- c("Length-for-Age Z-Score 3 months", "Weight-for-Length Z-Score 3 months", 
+             "Length-for-Age Z-Score 14 months", "Weight-for-Length Z-Score 14 months", "Ln IGF-1 14 months (ug/L)", 
+             "Length-for-Age Z-Score 28 months", "Weight-for-Length Z-Score 28 months", "Ln IGF-1 28 months (ug/L)")
+
+BH_tbl4 <- growth_tbl("Maternal Estriol and Child Growth Status", expo_var, out_var, exposure, outcome, full_res, full_adj_res, F)
+
+#--------------------------------------------------
+# Table 5 Maternal Inflammation and Child Growth, H2 
+#---------------------------------------------------
+exposure <- c("logAGP", "logCRP", "mom_t0_ln_ifn", "sumscore_t0_mom_Z")   
+outcome <- c("laz_t1", "whz_t1", "laz_t2", "whz_t2", "igf_t2", "laz_t3", "whz_t3", "igf_t3")
+expo_var <- c("Ln AGP (g/L)", "Ln CRP (mg/L)", "Initial Ln IFN-y (pg/mL)", "Sum score of 13 cytokines") 
+out_var <- c("Length-for-Age Z-Score 3 months", "Weight-for-Length Z-Score 3 months", 
+             "Length-for-Age Z-Score 14 months", "Weight-for-Length Z-Score 14 months", "Ln IGF-1 14 months (ug/L)", 
+             "Length-for-Age Z-Score 28 months", "Weight-for-Length Z-Score 28 months", "Ln IGF-1 28 months (ug/L)")
+
+BH_tbl5 <- growth_tbl("Maternal Inflammation and Child Growth Status", expo_var, out_var, exposure, outcome, full_res, full_adj_res, F)
+
+#---------------------
+#Save Tables
+#---------------------
+write.csv(BH_tbl2, ('./tables/pregnancy-stress-H3-BH.csv'))
+write.csv(BH_tbl3, ('./tables/pregnancy-stress-H1-BH.csv'))
+write.csv(BH_tbl4, ('./tables/pregnancy-stress-H4-BH.csv'))
+write.csv(BH_tbl5, ('./tables/pregnancy-stress-H2-BH.csv'))
