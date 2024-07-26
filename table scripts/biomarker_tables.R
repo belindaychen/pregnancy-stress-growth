@@ -1,5 +1,6 @@
 rm(list=ls())
 library(data.table)
+library(tidyverse)
 
 # source(here::here("0-config.R"))
 source(here::here("C:/Users/Classof2020ChenBelin/pregnancy-stress-growth/table scripts/table-functions.R"))
@@ -114,10 +115,10 @@ sect_properties <- prop_section(
 )
 
 
-save_as_docx("Table 4: Maternal Micronutrients and Child Growth Status" = tbl2flex, 
-             "Table 2: Maternal Plasma Cortisol and Child Growth Status" = tbl3flex,
-             "Table 5: Maternal Estriol and Child Growth Status" = tbl4flex,
-             "Table 3: Maternal Inflammation and Child Growth Status" = tbl5flex,
+save_as_docx("Table 5: Maternal Micronutrients and Child Growth Status" = tbl2flex, 
+             "Table 3: Maternal Plasma Cortisol and Child Growth Status" = tbl3flex,
+             "Table 2: Maternal Estriol and Child Growth Status" = tbl4flex,
+             "Table 4: Maternal Inflammation and Child Growth Status" = tbl5flex,
              path='C:/Users/Classof2020ChenBelin/pregnancy-stress-growth/tables/pregnancy-stress.docx',
              pr_section = sect_properties) 
 
